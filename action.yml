@@ -5,12 +5,12 @@ branding:
   icon: "check"
   color: "green"
 inputs:
-  path:
+  charts:
     description: "The path to the directory containing your Chart(s)"
-    default: "."
+    default: "charts"
     required: false
 runs:
   using: 'docker'
   image: './Dockerfile'
   env:
-    CHARTS_PATH: ${{ inputs.path }}
+    CHARTS_PATH: ${{ inputs.charts }}
