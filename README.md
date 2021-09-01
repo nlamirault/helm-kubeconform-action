@@ -10,16 +10,21 @@ You can use the action as follows:
 
 ```yaml
 on: push
+
 name: Helm / Validate
+
 jobs:
-  kubeval:
+
+  kubeconform:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: test
-      uses: nlamirault/helm-kubeval-action@v0.1.0
-      with:
-        path: ./charts
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Validate
+        uses: nlamirault/helm-kubeconform-action@v0.1.0
+        with:
+          charts: ./charts
 ```
 
 For each chart:
@@ -33,4 +38,4 @@ For more information on inputs, see the [API Documentation](https://developer.gi
 
 | Property | Default | Description |
 | --- | --- | --- |
-| path | . | The path to the directory containing your Chart(s) |
+| charts | . | The path to the directory containing your Chart(s) |
