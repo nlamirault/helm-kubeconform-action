@@ -40,6 +40,10 @@ RUN wget https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v0
     && mv jb-linux-amd64 /usr/local/bin/jb \
     && chmod +x /usr/local/bin/jb
 
+RUN wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 \
+    && mv jq-linux64 usr/local/bin/jq \
+    && chmod +x /usr/local/bin/jq
+
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
