@@ -46,7 +46,7 @@ function openapi_kyverno {
   git clone https://github.com/kyverno/kyverno.git
   cd kyverno
   export FILENAME_FORMAT='{kind}-{group}-{version}'
-  /tmp/openapi2jsonschema.py definitions/crds/*.yaml
+  openapi2jsonschema.py definitions/crds/*.yaml
   popd
 }
 
