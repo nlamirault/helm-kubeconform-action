@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# FROM alpine/helm:3.6.3
 FROM python:3
 
 LABEL maintainer="Nicolas Lamirault <nicolas.lamirault@gmail.com>" \
@@ -36,6 +35,10 @@ RUN python3 -m pip install pyyaml
 RUN wget https://raw.githubusercontent.com/yannh/kubeconform/v0.4.8/scripts/openapi2jsonschema.py \
     && mv openapi2jsonschema.py /usr/local/bin/openapi2jsonschema.py \
     && chmod +x /usr/local/bin/openapi2jsonschema.py
+
+RUN wget https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v0.4.0/jb-linux-amd64 \
+    && mv jb-linux-amd64 /usr/local/bin/jb \
+    && chmod +x /usr/local/bin/jb
 
 COPY entrypoint.sh /entrypoint.sh
 
