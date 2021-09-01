@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine/helm:3.6.3
+# FROM alpine/helm:3.6.3
+FROM python:3
 
 LABEL maintainer="Nicolas Lamirault <nicolas.lamirault@gmail.com>" \
     org.opencontainers.image.title="helm-kubeconform-action" \
@@ -22,15 +23,20 @@ LABEL maintainer="Nicolas Lamirault <nicolas.lamirault@gmail.com>" \
     org.opencontainers.image.vendor="Github Action" \
     org.opencontainers.image.version="v0.1.0"
     
-ENTRYPOINT ["/entrypoint.sh"]
+RUN wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz -O - | tar -xz \
+    && mv linux-amd64/helm /usr/bin/helm \
+    && chmod +x /usr/bin/helm \
+    && rm -rf linux-${ARCH}
 
 RUN wget https://github.com/yannh/kubeconform/releases/download/v0.4.10/kubeconform-linux-amd64.tar.gz \
-    && mkdir /kubeconform \
-    && tar xf kubeconform-linux-amd64.tar.gz -C /kubeconform \
+    && tar xf kubeconform-linux-amd64.tar.gz -C /usr/local/bin \
     && rm -r kubeconform-linux-amd64.tar.gz
 
+RUN python3 -m pip install pyyaml
 RUN wget https://raw.githubusercontent.com/yannh/kubeconform/v0.4.8/scripts/openapi2jsonschema.py \
     && mv openapi2jsonschema.py /usr/local/bin/openapi2jsonschema.py \
     && chmod +x /usr/local/bin/openapi2jsonschema.py
 
 COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]

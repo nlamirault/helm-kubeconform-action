@@ -74,7 +74,7 @@ build: ## Build the Docker image
 .PHONY: debug
 debug: ## Execute a container using the Docker image
 	@echo -e "$(OK_COLOR)[$(APP)] build $(REGISTRY_IMAGE):v$(VERSION)$(NO_COLOR)"
-	$(DOCKER) run --rm -it $(REGISTRY_IMAGE):$(VERSION) /bin/bash
+	$(DOCKER) run --rm -it $(REGISTRY_IMAGE):$(VERSION) /bin/sh
 
 .PHONY: publish
 publish: ## Publish the Docker image to the registry
@@ -83,4 +83,4 @@ publish: ## Publish the Docker image to the registry
 
 .PHONY: test
 test: ## Test the Docker image
-	@container-structure-test test --image $(REGISTRY_IMAGE):$(VERSION) --config cicd.yaml
+	@container-structure-test test --image $(REGISTRY_IMAGE):$(VERSION) --config test.yaml
